@@ -1,12 +1,11 @@
-import React from 'react';
-import './App.css';
-import { DatePicker } from 'antd';
+import Home from './pages/Home';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App">
-      <DatePicker />
-    </div>
+    <BrowserRouter>
+      <Home />
+    </BrowserRouter>
   );
 }
 
