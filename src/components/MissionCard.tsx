@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { Card } from 'antd';
+import { format } from 'date-fns';
 const { Meta } = Card;
 
 interface IProps {
@@ -8,18 +9,13 @@ interface IProps {
     mission_name: String;
     flight_number: Number;
     is_tentative: Boolean;
+    launch_date_utc: Date;
+    rocket: {
+      rocket_name: string;
+    };
+    launch_success: boolean;
     links: {
       mission_patch: string;
-      // mission_patch_small: string;
-      // reddit_campaign: string;
-      // reddit_launch: string;
-      // reddit_recovery: string;
-      // reddit_media: string;
-      // presskit: string;
-      // article_link: string;
-      // wikipedia: string;
-      // video_link: string;
-      // youtube_id: string;
     };
     launch_site: {
       site_name: string;
@@ -29,9 +25,16 @@ interface IProps {
 }
 
 const MissionCard = ({ item }: IProps) => {
-
   const navigate = useNavigate();
-  const { mission_name, links, launch_site, flight_number } = item;
+  const {
+    mission_name,
+    links,
+    launch_site,
+    flight_number,
+    launch_date_utc,
+    launch_success,
+    rocket,
+  } = item;
 
   const handleClick = (flight_number: Number) => {
     navigate(`../details/${flight_number}`);
@@ -44,10 +47,14 @@ const MissionCard = ({ item }: IProps) => {
       hoverable={true}
       cover={<img alt="Image" src={links.mission_patch} />}
     >
-      <Meta
-        title={mission_name}
-        description={launch_site.site_name_long}
-      />
+      <Meta title={mission_name} description={launch_site.site_name_long} />
+      <div style={{ margin: '10px 0px', color: 'grey' }}>
+        {format(new Date(launch_date_utc), 'EEEE, MMMM dd, yyyy hh:mm a')}
+      </div>
+      <div style={{ color: 'grey' }}>
+        {launch_success ? 'Successfully launched' : 'Failed to launch'}
+      </div>
+      <div style={{ color: 'grey' }}>{rocket.rocket_name}</div>
     </Card>
   );
 };

@@ -1,51 +1,62 @@
-import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useGetMissionsQuery } from '../redux/spacexApi';
 import { Row, Col, Card, Image, Descriptions, Spin } from 'antd';
+import { format } from 'date-fns';
 
 const Details = () => {
   const { id } = useParams();
 
-  const { data } = useGetMissionsQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      data: data?.find((el: any) => el.flight_number == id),
+  const { data, isLoading } = useGetMissionsQuery(undefined, {
+    selectFromResult: ({ data, isLoading }) => ({
+      data: data?.find((el: any) => el?.flight_number == id),
+      isLoading,
     }),
   });
 
-  console.log(data);
-  const {
-    flight_number,
-    launch_date_local,
-    launch_site,
-    details,
-    links,
-    rocket,
-    mission_name,
-  } = data;
 
   return (
     <div>
       {data == undefined ? (
-        <div className="spinner-wrapper">
-          <Spin size="large" />
-        </div>
+        <Spin size="large" />
       ) : (
         <Card title="View SpaceX Mission Detials">
-          <Row gutter={[0, 20]}>
+          <Row>
             <Col span={8}>
-              <Image width={300} src={`${links?.mission_patch}`} />
+              <Image width={300} src={`${data.links?.mission_patch}`} />
             </Col>
             <Col span={16}>
-              <Descriptions title={data?.fullName} layout="vertical">
-                <Descriptions.Item label="Flight Details">
-                  Mission Name: {mission_name}
-                  {/* Flight Number: {flight_number} */}
+              <Descriptions title={data?.mission_name} layout="horizontal">
+                <Descriptions.Item label="Mission Name">
+                  {data.mission_name}
+                </Descriptions.Item>
+                <Descriptions.Item label="Flight Number">
+                  {data.flight_number}
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Rocket Type">
+                  {data.rocket.rocket_type}
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Lunch Site Details">
+                  {data.launch_site.site_name_long}
+                </Descriptions.Item>
+
+                <Descriptions.Item label="Rocket Name">
+                  {data.rocket.rocket_name}
+                </Descriptions.Item>
+                <Descriptions.Item label="Launch Date">
+                  {format(
+                    new Date(data.launch_date_utc),
+                    'EEEE, MMMM dd, yyyy hh:mm a'
+                  )}
+                </Descriptions.Item>
+                <Descriptions.Item label="Launch Success">
+                  {data.launch_success
+                    ? 'Successfully launched'
+                    : 'Failed to launch'}
                 </Descriptions.Item>
                 <Descriptions.Item label="Flight Description">
-                  {details}
-                </Descriptions.Item>
-                <Descriptions.Item label="Lunch Site Details">
-                  {launch_site.site_name_long}
+                  {data.details}
                 </Descriptions.Item>
               </Descriptions>
             </Col>
