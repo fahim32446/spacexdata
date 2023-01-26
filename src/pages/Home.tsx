@@ -1,7 +1,6 @@
-import Heder from '../components/Header';
-import MissionCard from '../components/MissionCard';
-import { useGetMissionsQuery } from '../redux/spacexApi';
-import { List } from 'antd';
+import MissionCard from "../components/MissionCard";
+import { useGetMissionsQuery } from "../redux/spacexApi";
+import { List } from "antd";
 
 interface Item {
   details: string;
@@ -10,11 +9,10 @@ interface Item {
 }
 
 const Home = () => {
-  const { data, isLoading } = useGetMissionsQuery('');
+  const { data, isLoading } = useGetMissionsQuery("");
 
   return (
     <div>
-      <Heder />
       <List
         loading={isLoading}
         pagination={{
@@ -23,7 +21,7 @@ const Home = () => {
           },
           pageSize: 12,
         }}
-        grid={{ gutter: 16, column: 4 }}
+        grid={{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 4, xxl: 6 }}
         dataSource={data}
         renderItem={(item: Item) => (
           <List.Item>

@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Card } from 'antd';
 const { Meta } = Card;
 
@@ -28,11 +29,17 @@ interface IProps {
 
 const MissionCard = ({ item }: IProps) => {
   console.log(item);
-
+  const navigate = useNavigate();
   const { links, launch_site } = item;
+  
+  const handleClick = (id: Number)=>{
+    navigate(`../details/${id}`);
+    
+  }
 
   return (
     <Card
+    onClick={handleClick}
       style={{ width: 300 }}
       hoverable={true}
       cover={<img alt="Image" src={links.mission_patch} />}
