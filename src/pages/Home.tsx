@@ -7,9 +7,12 @@ interface Item {
   flight_number: Number;
   is_tentative: Boolean;
 }
+export interface IHomePageProps {}
 
-const Home = () => {
+const Home: React.FunctionComponent<IHomePageProps> = () => {
   const { data, isLoading } = useGetMissionsQuery("");
+
+  
 
   return (
     <div>

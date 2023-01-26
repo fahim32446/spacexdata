@@ -4,13 +4,15 @@ import Header from "./components/Header";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 
-const App = () => {
+export interface IApplicationProps {}
+
+const App: React.FunctionComponent<IApplicationProps> = () => {
   return (
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/home" component={Home} />
-        <Route path="/details/:id" component={Details} />
+        <Route path="/" element={<Home />} />
+        <Route path="/details/:id" element={<Details />} />
       </Routes>
     </BrowserRouter>
   );

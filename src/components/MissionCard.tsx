@@ -5,6 +5,7 @@ const { Meta } = Card;
 interface IProps {
   item: {
     details: string;
+    mission_name: String;
     flight_number: Number;
     is_tentative: Boolean;
     links: {
@@ -28,24 +29,23 @@ interface IProps {
 }
 
 const MissionCard = ({ item }: IProps) => {
-  console.log(item);
+
   const navigate = useNavigate();
-  const { links, launch_site } = item;
-  
-  const handleClick = (id: Number)=>{
-    navigate(`../details/${id}`);
-    
-  }
+  const { mission_name, links, launch_site, flight_number } = item;
+
+  const handleClick = (flight_number: Number) => {
+    navigate(`../details/${flight_number}`);
+  };
 
   return (
     <Card
-    onClick={handleClick}
+      onClick={() => handleClick(flight_number)}
       style={{ width: 300 }}
       hoverable={true}
       cover={<img alt="Image" src={links.mission_patch} />}
     >
       <Meta
-        title={launch_site.site_name}
+        title={mission_name}
         description={launch_site.site_name_long}
       />
     </Card>
@@ -53,4 +53,3 @@ const MissionCard = ({ item }: IProps) => {
 };
 
 export default MissionCard;
-
