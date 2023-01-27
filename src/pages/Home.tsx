@@ -26,7 +26,7 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
   const getSortedItems = () => {
     if (!isLoading) {
       const sortedItems = [...data];
-      sortedItems.sort((a, b) => {
+      sortedItems.sort((a, b): any => {
         const dateA = new Date(a.launch_date_utc);
         const dateB = new Date(b.launch_date_utc);
         let weekA = Math.ceil((dateA.getUTCDate() + dateA.getUTCDay()) / 7);

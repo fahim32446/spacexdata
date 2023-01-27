@@ -1,6 +1,6 @@
-import { useNavigate } from 'react-router-dom';
-import { Card } from 'antd';
-import { format } from 'date-fns';
+import { useNavigate } from "react-router-dom";
+import { Card } from "antd";
+import { format } from "date-fns";
 const { Meta } = Card;
 
 interface IProps {
@@ -10,6 +10,7 @@ interface IProps {
     flight_number: Number;
     is_tentative: Boolean;
     launch_date_utc: Date;
+    upcoming: boolean;
     rocket: {
       rocket_name: string;
     };
@@ -26,7 +27,7 @@ interface IProps {
 
 const MissionCard = ({ item }: IProps) => {
   const navigate = useNavigate();
-  
+
   const {
     mission_name,
     links,
@@ -35,6 +36,7 @@ const MissionCard = ({ item }: IProps) => {
     launch_date_utc,
     launch_success,
     rocket,
+    upcoming,
   } = item;
 
   const handleClick = (flight_number: Number) => {
@@ -49,13 +51,14 @@ const MissionCard = ({ item }: IProps) => {
       cover={<img alt="Image" src={links.mission_patch} />}
     >
       <Meta title={mission_name} description={launch_site.site_name_long} />
-      <div style={{ margin: '10px 0px', color: 'grey' }}>
-        {format(new Date(launch_date_utc), 'EEEE, MMMM dd, yyyy hh:mm a')}
+      <div style={{ margin: "10px 0px", color: "grey" }}>
+        {format(new Date(launch_date_utc), "EEEE, MMMM dd, yyyy hh:mm a")}
       </div>
-      <div style={{ color: 'grey' }}>
-        {launch_success ? 'Successfully launched' : 'Failed to launch'}
+      <div style={{ color: "grey" }}>
+        {launch_success ? "Successfully launched" : "Failed to launch"}
       </div>
-      <div style={{ color: 'grey' }}>{rocket.rocket_name}</div>
+      <div style={{ color: "grey" }}>{rocket.rocket_name}</div>
+      <div style={{ color: "grey" }}>{upcoming ? "Upcoming":""}</div>
     </Card>
   );
 };
