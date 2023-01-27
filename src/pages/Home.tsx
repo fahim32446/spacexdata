@@ -40,6 +40,8 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
           return dateB.getTime() - dateA.getTime();
         } else if (sortOrder === 'week') {
           return weekB - weekA;
+        }else if (sortOrder === 'upcoming'){
+          return b.upcoming - a.upcoming;
         }
       });
       return sortedItems;
@@ -83,6 +85,10 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
             {
               label: 'Last Year',
               value: 'lastYear',
+            },
+            {
+              label: 'Upcoming',
+              value: 'upcoming',
             },
           ]}
         ></Select>
