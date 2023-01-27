@@ -1,6 +1,10 @@
-git clone 
-npm install
-npm run dev for starting server
+clone the repo using "git clone URL"
+
+"npm install" 
+
+"npm run dev" for starting server
+
+
 
 
 Useing RTK Query from redux/toolkit for caching data
