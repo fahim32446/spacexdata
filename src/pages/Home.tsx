@@ -8,12 +8,16 @@ interface Item {
   details: string;
   flight_number: Number;
   is_tentative: Boolean;
+ 
 }
 
 interface Rocket {
   rocket: {
     rocket_name: string;
   };
+  details: string;
+  flight_number: Number;
+  is_tentative: Boolean;
 }
 
 export interface IHomePageProps {}
@@ -23,7 +27,7 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
   const [sortOrder, setSortOrder] = useState('Default');
   const [searchText, setSearchText] = useState('');
 
-  const getSortedItems = () => {
+  const getSortedItems = (): any => {
     if (!isLoading) {
       const sortedItems = [...data];
       sortedItems.sort((a, b): any => {
@@ -47,6 +51,8 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
       return sortedItems;
     }
   };
+
+  
 
   let filteredData = getSortedItems() as Rocket[];
 
