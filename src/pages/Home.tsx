@@ -1,7 +1,8 @@
-import { useState } from 'React';
+import React, {useState} from 'react';
 import MissionCard from '../components/MissionCard';
 import { useGetMissionsQuery } from '../redux/spacexApi';
 import { List, Typography, Select, Input } from 'antd';
+
 
 interface Item {
   details: string;
@@ -49,7 +50,7 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
 
   if (searchText !== '') {
     filteredData = filteredData.filter((el) =>
-      el.rocket.rocket_name?.includes(searchText)
+      el.rocket.rocket_name?.toLowerCase().includes(searchText.toLowerCase())
     );
   }
 
@@ -89,7 +90,7 @@ const Home: React.FunctionComponent<IHomePageProps> = () => {
         <Input
           placeholder="Search by rocket name"
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ width: 200 }}
+          style={{ width: 200, margin:"0px 30px" }}
         />
       </div>
 

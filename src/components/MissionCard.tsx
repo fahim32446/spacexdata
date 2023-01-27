@@ -26,6 +26,7 @@ interface IProps {
 
 const MissionCard = ({ item }: IProps) => {
   const navigate = useNavigate();
+  
   const {
     mission_name,
     links,
