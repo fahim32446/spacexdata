@@ -1,9 +1,9 @@
-clone the repo using "git clone URL"
 
-"npm install" 
-
-"npm run dev" for starting server
-
+```bash
+clone the repo using git clone URL
+npm install
+npm run dev for starting server
+```
 
 
 
